@@ -24,7 +24,7 @@ end
 
 materials = read('Inputs.xlsx', 'Materials', 'B2:C3000');
 
-sections = read('Inputs.xlsx', 'Sections', 'B2:E3000');
+sections = read('Inputs.xlsx', 'Sections', 'B2:G3000');
 
 nodalLoads = read('Inputs.xlsx', 'Nodal Load', 'B2:H3000');
 
