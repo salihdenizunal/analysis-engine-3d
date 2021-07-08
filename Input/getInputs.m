@@ -1,4 +1,4 @@
-function [XYZ, supports, connectivity, materials, sections, thicknesses, elementTypes, materialIds, sectionIds, nodalLoads] = getInputs()
+function [XYZ, supports, connectivity, materials, sections, thicknesses, elementTypes, materialIds, sectionIds, nodalLoads, deltaL, phi, tolerance, maxIteration, numIncrement, strainType] = getInputs()
 
 XYZ = read('Inputs.xlsx', 'Coordinates', 'B2:D3000');
 
@@ -27,5 +27,17 @@ materials = read('Inputs.xlsx', 'Materials', 'B2:C3000');
 sections = read('Inputs.xlsx', 'Sections', 'B2:E3000');
 
 nodalLoads = read('Inputs.xlsx', 'Nodal Load', 'B2:H3000');
+
+deltaL = read('Inputs.xlsx', 'Arc Length Parameters', 'A2:A2');
+
+phi = read('Inputs.xlsx', 'Arc Length Parameters', 'B2:B2');
+
+tolerance = read('Inputs.xlsx', 'Arc Length Parameters', 'C2:C2');
+
+maxIteration = read('Inputs.xlsx', 'Arc Length Parameters', 'D2:D2');
+
+numIncrement = read('Inputs.xlsx', 'Arc Length Parameters', 'E2:E2');
+
+strainType = read('Inputs.xlsx', 'Arc Length Parameters', 'F2:F2');
 
 end
