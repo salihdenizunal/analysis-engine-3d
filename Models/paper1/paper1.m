@@ -36,7 +36,12 @@ for j = 1:1
         end
     
         tic
-        [u,f,inertias,moments,internalForces,numberOfIterations, displacementIterations, curvatures] = solveCrack(elements, K, F, n, mIt, tol);
+        switch solverChoice
+            case "NewtonRaphson"
+                [u,f,inertias,moments,internalForces,numberOfIterations, displacementIterations, curvatures] = solveNewtonRaphson(elements, K, F, n, mIt, tol);
+            case "ArcLength"
+                [u, f, internalForces] = solveArcLength(elements, K, F, n, mIt, tol, deltaL, phi);
+        end
         toc
 
         counter = counter + 1;

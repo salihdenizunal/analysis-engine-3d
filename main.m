@@ -1,13 +1,25 @@
 clear all
 clc
 
-n = 1000;
-mIt = 100;
-tol = 1e-3;
+% solverChoice = "NewtonRaphson";
+solverChoice = "ArcLength";
 
-plotMomentAnimationFigure = true;
+switch solverChoice
+    case "NewtonRaphson"
+        n = 100;
+        mIt = 100;
+        tol = 1e-3;
+    case "ArcLength"
+        n = 200;
+        mIt = 500;
+        tol = 1e-3;
+        deltaL = 1;
+        phi = 1; % spherical = 0, sylindirical = 1
+end
+
+% Plot options
+plotMomentAnimationFigure = false;
 animationSpeed = 10000;
-
 plotDisplacementFigure = true;
 plotComparison = true;
 
@@ -26,6 +38,7 @@ colors{10} = 'c';                   % cyan
 colors{11} = 'm';                   % magentha
 colors{12} = 'k';                   % black
 
+% Model(s) to run
 % bransonExperiment
 % continuousBeam
 % paper1

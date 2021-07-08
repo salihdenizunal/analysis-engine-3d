@@ -33,7 +33,7 @@ for j = 1:1
         end
     
         tic
-        [u,f,inertias,moments,internalForces,numberOfIterations, displacementIterations, curvatures] = solveCrack(elements, K, F, n, mIt, tol);
+        [u,f,inertias,moments,internalForces,numberOfIterations, displacementIterations, curvatures] = solveNewtonRaphson(elements, K, F, n, mIt, tol);
         toc
 
         counter = counter + 1;
