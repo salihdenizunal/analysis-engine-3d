@@ -1,8 +1,9 @@
-function [U,force,inertias] = solveCrack(elements, K, F, n, mIt, tol)
+function [U,force,inertias,moments,numberOfIterations] = solveCrack(elements, K, F, n, mIt, tol)
 
 numEqn = size(K,1);
 deltaF = (1/n)*F;
 U = zeros(numEqn,n+1);
+numberOfIterations = zeros(1,n+1);
 force = zeros(numEqn,n+1);
 fe = zeros(numEqn,1);
 
@@ -11,6 +12,7 @@ for elemId = 1: size(elements,2)
     for gaussPoint=1:5
      	inertias(elemId,1,gaussPoint) = elements{elemId}.Ieff(gaussPoint);
     end
+    moments(elemId,1,:) = elements{elemId}.calculateInternalMoments(U);
 end
 
 for i=1:n
@@ -45,13 +47,13 @@ for i=1:n
 	
 	U(:,i+1) = Uc;
 	force(:,i+1) = fe;
+    numberOfIterations(i+1) = nIt;
 
 	for elemId = 1: size(elements,2)
-
-    for gaussPoint=1:5
-     	inertias(elemId,i+1,gaussPoint) = elements{elemId}.Ieff(gaussPoint);
-    end
-
+        for gaussPoint=1:5
+            inertias(elemId,i+1,gaussPoint) = elements{elemId}.Ieff(gaussPoint);
+        end
+        moments(elemId,i+1,:) = elements{elemId}.calculateInternalMoments(Uc);
 	end
 	
 end
