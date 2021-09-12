@@ -29,7 +29,20 @@ for i=1:n
 	nIt = 0;
 	while nIt < mIt
 		nIt = nIt + 1;
-		fi = getInternalForcesCrackedBeam(elements,numEqn,Uc);
+        
+        fi = zeros(numEqn,1);
+        for elemId = 1: size(elements,2)
+            elemInternalForces = elements{elemId}.calculateInternalForces(Uc);
+            for dof1 = 1:2
+                for dof2 = 1:6
+                    globalDofId = elements{elemId}.eqnNumbering(dof1,dof2);
+                    if (globalDofId ~= 0)
+                        fi(globalDofId) = fi(globalDofId) + elemInternalForces(dof1,dof2);
+                    end
+                end
+            end
+        end 
+        
 		R = fi - fe;
 		if norm(R) < tol
 			break;
