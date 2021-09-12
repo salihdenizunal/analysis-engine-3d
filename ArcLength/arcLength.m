@@ -1,18 +1,24 @@
-function [tangentialForce, dispAtIncrement, numIteration] = arcLength(XYZ, supports, nodes, elements, nodalLoads, deltaL, phi, tolerance, maxIteration, numIncrement, elementTypes, strainType)
+function [tangentialForce, dispAtIncrement, numIteration] = arcLength(XYZ, supports, connectivity, materials, sections, materialIds, nodalLoads, sectionIds, deltaL, phi, tolerance, maxIteration, numIncrement, elementTypes)
 numNode = size(XYZ, 1);
-[nEq, numDof] = getEquaitonNumbering(numNode, supports);
 
-F = getLoadVector(nodalLoads, nodes);
+[nEq, numDof] = getEquaitonNumbering(numNode, supports);
 
 dispAtIncrement = zeros(numDof, numIncrement+1);
 tangentialForce = zeros(numDof, numIncrement+1);
+
+[Kg, elements, nodes] = constructNonlinearElements(XYZ, supports, connectivity, materials, sections, elementTypes, materialIds, sectionIds, dispAtIncrement);
+
+F = getLoadVector(nodalLoads, nodes);
+
+
+
 
 lambda = zeros(1, numIncrement+1);
 
 for i=1:numIncrement
     numIteration(i) = 1;
     
-    Kt = nonlinearTangantStiffnessTruss(dispAtIncrement, elements, nodes, elementTypes, numDof, strainType);%Look at this
+    Kt = nonlinearTangentStiffnessBeam(dispAtIncrement, elements, numDof, nodes);%Look at this
     Upt = solveForDisplacement(F, Kt);
     
     a1 = (Upt')*Upt+ phi^2 * (F')*F;
@@ -38,8 +44,8 @@ for i=1:numIncrement
     lambdaT = lambda(i) + deltaLambda;
     
     while numIteration(i) <= maxIteration
-        Kt = nonlinearTangantStiffnessTruss(UT, elements, nodes, elementTypes, numDof, strainType);
-        fi = nonlinearInternalForceTruss(UT, elements, nodes, elementTypes, numDof, strainType);
+        Kt = nonlinearTangentStiffnessBeam(UT, elements, numDof, nodes);
+        fi = nonlinearInternalForceBeam(UT, elements, numDof, nodes);
         fe = lambdaT * F;
         Re = fi - fe;
         
