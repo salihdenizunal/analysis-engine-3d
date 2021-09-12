@@ -16,6 +16,8 @@ properties
 		Icrack; % Cracked section moment of inertia
 		Mcrack; % Cracking moment
         
+        momentCurvatureCurve;
+        
         % Stifness
         k; % local
         K; % global
@@ -41,11 +43,12 @@ properties
             
             this.elasticityModulus = material(1);
             
-            this.area = section(1);
-            this.I = section(2);
-            this.Icrack = section(5);
-            this.Mcrack = section(6);
-			
+            this.area = section{1};
+            this.I = section{2};
+            this.Icrack = section{5};
+            this.Mcrack = section{6};
+            this.momentCurvatureCurve = section{7};
+
             for i = 1:5
                 this.Ieff(i) = this.I;
             end
@@ -66,6 +69,8 @@ properties
 		Mi = calculateInternalMoments(this, d)
 		u = getElementDisplacements(this, d)
 		updateIeff(this,Ma)
-		
+        
+        curvature = calculateCurvature(this, d)
+		updateInertia(this, curvature)
     end
 end
