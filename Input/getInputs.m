@@ -24,7 +24,11 @@ end
 
 materials = read('Inputs.xlsx', 'Materials', 'B2:C3000');
 
-sections = read('Inputs.xlsx', 'Sections', 'B2:G3000');
+[sectionsNumericData,momentCurvatureSheetNames] =  xlsread('Inputs.xlsx', 'Sections', 'B2:H3000');
+sections = num2cell(sectionsNumericData);
+for i = 1:size(sections,1)
+    sections{7} = read('Inputs.xlsx', momentCurvatureSheetNames{i}, 'A2:B3000');
+end
 
 nodalLoads = read('Inputs.xlsx', 'Nodal Load', 'B2:H3000');
 
