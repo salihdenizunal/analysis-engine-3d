@@ -1,12 +1,10 @@
-function [tangentialForce, dispAtIncrement, numIteration] = arcLength(XYZ, supports, connectivity, materials, sections, materialIds, nodalLoads, sectionIds, deltaL, phi, tolerance, maxIteration, numIncrement, elementTypes)
+function [tangentialForce, dispAtIncrement, numIteration] = arcLength(XYZ, supports, elements, nodes, nodalLoads, deltaL, phi, tolerance, maxIteration, numIncrement)
 numNode = size(XYZ, 1);
 
 [nEq, numDof] = getEquaitonNumbering(numNode, supports);
 
 dispAtIncrement = zeros(numDof, numIncrement+1);
 tangentialForce = zeros(numDof, numIncrement+1);
-
-[Kg, elements, nodes] = constructNonlinearElements(XYZ, supports, connectivity, materials, sections, elementTypes, materialIds, sectionIds, dispAtIncrement);
 
 F = getLoadVector(nodalLoads, nodes);
 
@@ -18,7 +16,7 @@ lambda = zeros(1, numIncrement+1);
 for i=1:numIncrement
     numIteration(i) = 1;
     
-    Kt = nonlinearTangentStiffnessBeam(dispAtIncrement, elements, numDof, nodes);%Look at this
+    Kt = nonlinearTangentStiffnessBeam(dispAtIncrement(:,i), elements, numDof, nodes);%Look at this
     Upt = solveForDisplacement(F, Kt);
     
     a1 = (Upt')*Upt+ phi^2 * (F')*F;
