@@ -1,4 +1,4 @@
-function [Kg, elements, nodes] = constructStructure (XYZ, supports, connectivity, materials, sections, elementTypes, materialIds, sectionIds, thicknesses)
+function [Kg, elements, nodes] = constructStructure (XYZ, supports, connectivity, materials, sections, elementTypes, materialIds, sectionIds, thicknesses, strainType)
     
     % Construct node objects
     numNode = size(XYZ, 1);
@@ -35,6 +35,13 @@ function [Kg, elements, nodes] = constructStructure (XYZ, supports, connectivity
                 material = materials(materialIds(i),:);
 				thickness = thicknesses(i);
                 elements{i} = ShellElement(i, nodeI, nodeJ, nodeK, nodeL, material, thickness);
+            case 5
+                startNode = nodes(connectivity(i,1));
+                endNode = nodes(connectivity(i,2));
+                material = materials(materialIds(i),:);
+                section = sections(sectionIds(i),:);
+                nodalDisplacements = zeros(numNode, 6);
+                elements{i} = NonlinearBeam(i, startNode, endNode, material, section, nodalDisplacements);
         end
     end
     
