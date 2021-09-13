@@ -4,11 +4,11 @@ function Kt = nonlinearTangentStiffness(this, nodalDisplacement)
     
     N = calculateAxialForceOnBeam(this,ln);
     
-    alpha = calculateRigidRotationOfBar(this, ln, nodalDisplacement);
-    
-    [M1, M2] = calculateBendingMomentsOnBeam(this, alpha, nodalDisplacement);
+    beta0 = calculateInitialAngelOfBar(this);
     
     [s, c] = calculateFinalOrientationAngle(this, ln, nodalDisplacement);
+    
+    [M1, M2] = calculateBendingMomentsOnBeam(this, beta0, nodalDisplacement, s, c);
     
     r = calculateSpecialGeometryVector_r(this, s, c);
     

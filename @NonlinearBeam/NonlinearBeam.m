@@ -53,7 +53,7 @@ methods
     
     ln = calculateCurrentLength(this, nodalDisplacement)
     
-    alpha = calculateRigidRotationOfBar(this, ln, nodalDisplacement)
+    beta0 = calculateInitialAngelOfBar(this)
     
     [s, c] = calculateFinalOrientationAngle(this, ln, nodalDisplacement)
     
@@ -69,7 +69,7 @@ methods
     
     N = calculateAxialForceOnBeam(this, ln)
     
-    [M1, M2] = calculateBendingMomentsOnBeam(this, alpha, nodalDisplacement)
+    [M1, M2] = calculateBendingMomentsOnBeam(this, beta0, nodalDisplacement, s, c)
     
     updateStiffness(this, nodalDisplacement);
      
