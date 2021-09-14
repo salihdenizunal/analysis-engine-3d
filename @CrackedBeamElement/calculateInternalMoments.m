@@ -12,7 +12,7 @@ for i = 1:5
 	Lksi = Loc(i);
 	B = this.curvatureDisplacementRelation(Lksi);
 	curvature = B * u;
-	Mi(i) = curvature * this.Ieff(i) * this.elasticityModulus;
+    Mi(i) = readCurve(this.momentCurvatureCurve, curvature);
 end
 
 end
