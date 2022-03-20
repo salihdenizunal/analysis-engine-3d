@@ -14,7 +14,8 @@ properties
         I; % Gross section moment of inertia
 		Ieff; % Effective moment of inertia of each gauss point
 		Icrack; % Cracked section moment of inertia
-		Mcrack; % Cracking moment
+		McrackPosBending; % Cracking moment in positive bending
+		McrackNegBending; % Cracking moment in negative bending
         
         momentCurvatureCurve;
         
@@ -46,8 +47,9 @@ properties
             this.area = section{1};
             this.I = section{2};
             this.Icrack = section{5};
-            this.Mcrack = section{6};
-            this.momentCurvatureCurve = section{7};
+            this.McrackPosBending = section{6};
+            this.McrackNegBending = section{7};
+            this.momentCurvatureCurve = section{8};
 
             for i = 1:5
                 this.Ieff(i) = this.I;
