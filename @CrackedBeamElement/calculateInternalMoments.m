@@ -7,12 +7,10 @@ function Mi = calculateInternalMoments(this, d)
 Loc = [-1 -0.6546536707079771437983 0 0.6546536707079771437983 1];
 
 u = this.getElementDisplacements(d);
+curvature = this.calculateCurvature(d);
 
 for i = 1:5
-	Lksi = Loc(i);
-	B = this.curvatureDisplacementRelation(Lksi);
-	curvature = B * u;
-    Mi(i) = readCurve(this.momentCurvatureCurve, curvature);
+    Mi(i) = readCurve(this.momentCurvatureCurve, curvature(i));
 end
 
 end
