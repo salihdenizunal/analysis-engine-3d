@@ -25,6 +25,9 @@ properties
         
         % Equation numbering
         eqnNumbering;
+
+        % Method to update stiffness
+        method;
     end
     
     methods 

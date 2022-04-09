@@ -4,16 +4,14 @@ function updateStiffness(this, d)
 % 2 for moment-curvature relation
 % 3 static
 
-method = 2;
-
-if (method == 1)
+if (this.method == 1)
     Mi = this.calculateInternalMoments(d);
     this.updateIeff(Mi);
-elseif (method == 2)
+elseif (this.method == 2)
     curvature = this.calculateCurvature(d);
     this.updateInertia(curvature);
-elseif (method == 3)
-    
+elseif (this.method == 3)
+    % Don't update stiffness 
 end
 
 this.k = this.calculateStiffness();
