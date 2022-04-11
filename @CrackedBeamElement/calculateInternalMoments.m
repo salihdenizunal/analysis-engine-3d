@@ -10,7 +10,7 @@ u = this.getElementDisplacements(d);
 curvature = this.calculateCurvature(d);
 
 for i = 1:5
-    Mi(i) = readCurve(this.momentCurvatureCurve, curvature(i));
+    Mi(i) = curvature(i) * (this.elasticityModulus * this.Ieff(i));
 end
 
 end
