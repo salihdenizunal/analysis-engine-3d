@@ -1,29 +1,55 @@
 clear all
 clc
-grid on
-hold on 
 
 [XYZ, supports, connectivity, materials, sections, thickness, elementTypes, materialIds, sectionIds, nodalLoads] = getInputs();
-[K, elements, nodes] = constructStructure(XYZ, supports, connectivity, materials, sections, elementTypes, materialIds, sectionIds);
-F = getLoadVector(nodalLoads,nodes);
 
-n = 500;
-mIt = 500;
-tol = 10^-8;
-[u,f,inertias] = solveCrack(elements, K, F, n, mIt, tol);
+n = 1000;
+mIt = 100;
+tol = 1e-10;
 
+% Some color options
+colors{1} = [1, 0, 0];
+colors{2} = [0, 1, 0];
+colors{3} = [0, 0, 1];
 
+for i = 1:3
 
-plot(-u(18,:)*1000,-f(4,:)*8,'DisplayName','Nonlinear Analysis Results','LineWidth',3,'Color','b');
+    [K, elements, nodes] = constructStructure(XYZ, supports, connectivity, materials, sections, elementTypes, materialIds, sectionIds);
+    F = getLoadVector(nodalLoads,nodes);
 
-% % experiment
-P = [0 3.92 7.84 11.77 15.69 19.61 23.53 27.45 31.38 35.30 39.22];
-def = [0 0.29 0.65 1.5 2.5 3.68 4.77 6.03 7.31 8.47 9.65];
-plot(def,P,'DisplayName','Experimental Results','LineWidth',3,'Color','r');
+    method = i;
+    color = colors{i};
+    for elemId = 1:size(elements,2)
+		elements{elemId}.method = i;
+    end
 
-xlabel('Midspan Deflection, mm');
-ylabel('Total Load, kN');
+    tic
+    [u,f,inertias,moments,internalForces,numberOfIterations, displacementIterations, curvatures] = solveCrack(elements, K, F, n, mIt, tol);
+    toc
+    
+    disp = nodeDisplacements(nodes, u(:,size(u,2)));
+    
+    figure(1)
+    plotInternalMomentDiagramAnimation
+    pause(1)
+    
+    figure(2)
+    plotGaussPointsMomentDiagramAnimation
+    pause(1)
 
-% % inertias
-figure
-plot(-f(4,:),inertias);
+    figure(3)
+    plotCurvatureAtGaussPointsAnimation
+    pause(1)
+
+    figure(4)
+    plotDisplacement(10,nodalLoads,f,u,displacementIterations,numberOfIterations,color)
+    pause(1)
+
+    figure(5)
+    plotGaussMomentChangeForTwoElements([9,10],elements,moments,n)
+    pause(1)
+
+    figure(6)
+    plotInternalMomentChangeForTwoElements([9,10],elements,internalForces,n)
+    pause(1)
+end
