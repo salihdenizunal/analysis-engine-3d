@@ -9,12 +9,8 @@ hold on
 yline(0);
 yline(-max(max(max(curvatures))));
 yline(-min(min(min(curvatures))));
-% set(gca,'XLim',[0 22],'Ylim',[-10 22]);
-
-increment = [0, 0.3453463292920229, 1, 1.3453463292920229, 2];
 
 gaussLoc = [-1 -0.6546536707079771437983 0 0.6546536707079771437983 1];
-% increment = [0, 0.3453/2, 0.6547/2, 0.6547/2, 0.3453/2];
 
 counter = 1;
 % For each iteration
@@ -28,7 +24,7 @@ for i = 1:n+1
         % For each gauss point
         for k = 1:5
             % Create the data for plot (xCoor, Corresponding Moment)
-            xCoors(counter) = startX + (length/2) * increment(k);
+            xCoors(counter) = startX + (length/2) * (gaussLoc(k) + 1);
             plotCurvatures(1,counter) = curvatures(j,i,k);
             counter = counter + 1;
         end

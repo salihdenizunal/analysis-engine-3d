@@ -1,5 +1,5 @@
 % Moment vs iteration
-function plotGaussMomentChangeForTwoElements(requestedElements, elements, moments, n)
+function plotGaussMomentChangeForTwoElements(requestedElements, elements, moments, n, color)
     grid on
     hold on
     legend show
@@ -17,7 +17,7 @@ function plotGaussMomentChangeForTwoElements(requestedElements, elements, moment
         gaussPoint1(i) = -(moments(requestedElements(2),i,1));
     end
 
-    plot(gaussPoint5,'DisplayName',"Element ID = " + int2str(requestedElements(1)) + " Gauss Point = 5",'LineWidth',2);
-    plot(gaussPoint1,'DisplayName',"Element ID = " + int2str(requestedElements(2)) + " Gauss Point = 1",'LineWidth',2);
+    plot(gaussPoint5,'*-','DisplayName',"Element ID = " + int2str(requestedElements(1)) + " Gauss Point = 5",'LineWidth',2, 'Color', color);
+    plot(gaussPoint1,'o-','DisplayName',"Element ID = " + int2str(requestedElements(2)) + " Gauss Point = 1",'LineWidth',2, 'Color', color);
 
 end
