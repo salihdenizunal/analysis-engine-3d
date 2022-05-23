@@ -41,6 +41,12 @@ function [Kg, elements, nodes] = constructStructure (XYZ, supports, connectivity
                 material = materials(materialIds(i),:);
                 section = sections(sectionIds(i),:);
                 elements{i} = CrackedBeamElement(i, startNode, endNode, material, section);
+            case 5
+                startNode = nodes(connectivity(i,1));
+                endNode = nodes(connectivity(i,2));
+                material = materials(materialIds(i),:);
+                section = sections(sectionIds(i),:);
+                elements{i} = CrackedFrameElement(i, startNode, endNode, material, section);
         end
     end
     
