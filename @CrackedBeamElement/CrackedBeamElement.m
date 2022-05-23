@@ -11,17 +11,18 @@ properties
         
         % Section properties
         area;
-        I; % Gross section moment of inertia
-		Ieff; % Effective moment of inertia of each gauss point
-		Icrack; % Cracked section moment of inertia
-		McrackPosBending; % Cracking moment in positive bending
-		McrackNegBending; % Cracking moment in negative bending
+        Iz; % Gross section moment of inertia
+		Izeff; % Effective moment of inertia of each gauss point
+		Izcrack; % Cracked section moment of inertia
+		MzcrackPosBending; % Cracking moment in positive bending
+		MzcrackNegBending; % Cracking moment in negative bending
         
         momentCurvatureCurve;
         
         % Stifness
         k; % local
         K; % global
+        Kt; % tangent
         
         % Equation numbering
         eqnNumbering;
@@ -48,18 +49,17 @@ properties
             this.elasticityModulus = material(1);
             
             this.area = section{1};
-            this.I = section{2};
-            this.Icrack = section{5};
-            this.McrackPosBending = section{6};
-            this.McrackNegBending = section{7};
+            this.Iz = section{4};
+            this.Izcrack = section{5};
+            this.MzcrackPosBending = section{6};
+            this.MzcrackNegBending = section{7};
             this.momentCurvatureCurve = section{8};
 
             for i = 1:5
-                this.Ieff(i) = this.I;
+                this.Izeff(i) = this.Iz;
             end
             
             this.k = calculateStiffness(this);
-            
             mapCrackedBeamTo3d(this);
 		end
 		
@@ -68,7 +68,6 @@ properties
 		B = curvatureDisplacementRelation(this, ksi)
         k = calculateStiffness(this)
 		mapCrackedBeamTo3d(this)
-		
 		
 		updateStiffness(this,d)
 		Mi = calculateInternalMoments(this, d)

@@ -6,8 +6,8 @@ set(gca,'Ydir','reverse')
 grid on
 hold on
 yline(0);
-yline(elements{1}.McrackPosBending);
-yline(elements{1}.McrackNegBending);
+yline(elements{1}.MzcrackPosBending);
+yline(elements{1}.MzcrackNegBending);
 
 counter = 1;
 % For each iteration

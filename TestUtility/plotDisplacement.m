@@ -1,14 +1,19 @@
-function plotDisplacement(requestedDof,nodalLoads,f,u,displacementIterations,numberOfIterations,color)
+function plotDisplacement(requestedDof,f,u,displacementIterations,numberOfIterations,color)
 
 grid on
 hold on 
-plot(u(requestedDof,:),f(requestedDof,:)*(size(nodalLoads,1)));
+
+xlim([0 2])
+ylim([0 5.5])
+
+totalForceIterations = sum(f,1);
+plot(u(requestedDof,:),totalForceIterations);
 
 
 forces = zeros(1);
 for j=1:size(f,2)
     for i=1:numberOfIterations(j)
-        forces(end+1) = f(requestedDof,j)*(size(nodalLoads,1));
+        forces(end+1) = totalForceIterations(j);
     end
 end
 

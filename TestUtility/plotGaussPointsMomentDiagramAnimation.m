@@ -6,8 +6,8 @@ set(gca,'Ydir','reverse')
 grid on
 hold on
 yline(0);
-yline(elements{1}.McrackPosBending);
-yline(elements{1}.McrackNegBending);
+yline(elements{1}.MzcrackPosBending);
+yline(elements{1}.MzcrackNegBending);
 
 gaussLoc = [-1 -0.6546536707079771437983 0 0.6546536707079771437983 1];
 

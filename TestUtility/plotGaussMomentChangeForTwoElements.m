@@ -5,8 +5,8 @@ function plotGaussMomentChangeForTwoElements(requestedElements, elements, moment
     legend show
 
     l1 = yline(0);
-    l2 = yline(elements{1}.McrackNegBending);
-    l3 = yline(elements{1}.McrackPosBending);
+    l2 = yline(elements{1}.MzcrackNegBending);
+    l3 = yline(elements{1}.MzcrackPosBending);
     
     set( get( get( l1, 'Annotation'), 'LegendInformation' ), 'IconDisplayStyle', 'off' );
     set( get( get( l2, 'Annotation'), 'LegendInformation' ), 'IconDisplayStyle', 'off' );

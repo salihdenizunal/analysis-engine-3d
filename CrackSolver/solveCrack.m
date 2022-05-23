@@ -14,15 +14,15 @@ inertias = zeros(size(elements,2),n+1);
 curvatures = zeros(size(elements,2),n+1,5);
 for elemId = 1: size(elements,2)
     for gaussPoint=1:5
-     	inertias(elemId,1,gaussPoint) = elements{elemId}.Ieff(gaussPoint);
+     	inertias(elemId,1,gaussPoint) = elements{elemId}.Izeff(gaussPoint);
     end
-    curvatures(elemId,1,:) = elements{elemId}.calculateCurvature(U);
-    moments(elemId,1,:) = elements{elemId}.calculateInternalMoments(U);
-    internalForces{elemId,1} = elements{elemId}.calculateInternalForces(U);
+    curvatures(elemId,1,:) = elements{elemId}.calculateCurvature(U(:,1));
+    moments(elemId,1,:) = elements{elemId}.calculateInternalMoments(U(:,1));
+    internalForces{elemId,1} = elements{elemId}.calculateInternalForces(U(:,1),true);
 end
 
 % Initialize tangent stiffness.
-Kt = constructGlobalStiffness(elements, numEqn);
+Kt = constructGlobalStiffness(elements, numEqn, true);
 
 % Start increments.
 for i=1:n
@@ -35,7 +35,7 @@ for i=1:n
 		element = elements{elemId};
 		element.updateStiffness(Uc);
 	end
-	Kt = constructGlobalStiffness(elements, numEqn);
+	Kt = constructGlobalStiffness(elements, numEqn, true);
 	
     % Start iterations.
 	nIt = 0;
@@ -45,12 +45,12 @@ for i=1:n
         % Calculate internal forces.
         fi = zeros(numEqn,1);
         for elemId = 1: size(elements,2)
-            elemInternalForces = elements{elemId}.calculateInternalForces(Uc);
-            for dof1 = 1:2
-                for dof2 = 1:6
-                    globalDofId = elements{elemId}.eqnNumbering(dof1,dof2);
+            elemInternalForces = elements{elemId}.calculateInternalForces(Uc,true);
+            for node = 1:2
+                for dof = 1:6
+                    globalDofId = elements{elemId}.eqnNumbering(node,dof);
                     if (globalDofId ~= 0)
-                        fi(globalDofId) = fi(globalDofId) + elemInternalForces(dof1,dof2);
+                        fi(globalDofId) = fi(globalDofId) + elemInternalForces(node,dof);
                     end
                 end
             end
@@ -78,11 +78,11 @@ for i=1:n
     % Hold extra information.
 	for elemId = 1: size(elements,2)
         for gaussPoint=1:5
-            inertias(elemId,i+1,gaussPoint) = elements{elemId}.Ieff(gaussPoint);
+            inertias(elemId,i+1,gaussPoint) = elements{elemId}.Izeff(gaussPoint);
         end
         curvatures(elemId,i+1,:) = elements{elemId}.calculateCurvature(Uc);
         moments(elemId,i+1,:) = elements{elemId}.calculateInternalMoments(Uc);
-        internalForces{elemId,i+1} = elements{elemId}.calculateInternalForces(Uc);
+        internalForces{elemId,i+1} = elements{elemId}.calculateInternalForces(Uc,true);
 	end
 	
 end

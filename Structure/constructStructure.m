@@ -44,6 +44,6 @@ function [Kg, elements, nodes] = constructStructure (XYZ, supports, connectivity
         end
     end
     
-	Kg = constructGlobalStiffness(elements,numEqn);
+	Kg = constructGlobalStiffness(elements,numEqn, false);
 
 end
