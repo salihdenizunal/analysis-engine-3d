@@ -1,5 +1,8 @@
 % Moment vs iteration
 function plotGaussMomentChangeForTwoElements(requestedElements, elements, moments, n, color)
+%%
+%% USE INTERNAL MOMENT CHANGE INSTEAD OF THIS
+%%
     grid on
     hold on
     legend show

@@ -1,6 +1,7 @@
-% Change the speed if necessary.
-speed = 1000;
-
+function plotGaussPointsMomentDiagramAnimation(elements, moments, n, speed, color)
+%%
+%% USE INTERNAL MOMENT DIAGRAM INSTEAD OF THIS
+%%
 clear plotMoments plotData xCoors
 set(gca,'Ydir','reverse')
 grid on
