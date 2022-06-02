@@ -5,23 +5,23 @@ function updateIeff(this, Mi)
         % smaller than the gross section moment of inertia, that case will be
         % handled in the following control statement.
         if (Mi(i) > 0)
-            Mcrack = this.McrackPosBending;
+            Mcrack = this.MzcrackPosBending;
         else
-            Mcrack = this.McrackNegBending;
+            Mcrack = this.MzcrackNegBending;
         end
 
-        inertia = (Mcrack / Mi(i))^3 * this.I + (1 - (Mcrack / Mi(i))^3) * this.Icrack;
+        inertia = (Mcrack / Mi(i))^3 * this.Iz + (1 - (Mcrack / Mi(i))^3) * this.Izcrack;
 
         % Effective moment of ineartia of the element at a gauss point.
         % But not greater than gross section moment of inertia.
-        if (inertia <= this.I)
-            if (inertia < this.Icrack)
-                this.Ieff(i) = this.Icrack;
+        if (inertia <= this.Iz)
+            if (inertia < this.Izcrack)
+                this.Izeff(i) = this.Izcrack;
             else
-                this.Ieff(i) = inertia;
+                this.Izeff(i) = inertia;
             end
         else
-            this.Ieff(i) = this.I;
+            this.Izeff(i) = this.Iz;
         end
     end
 
