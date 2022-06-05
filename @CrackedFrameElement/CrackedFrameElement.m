@@ -90,7 +90,7 @@ properties
 		updateStiffness(this,d)
 		Mi = calculateInternalMoments(this, d)
 		u = getElementDisplacements(this, d)
-		updateIeff(this,Ma)
+		updateIeff(this,Mi)
         
         curvature = calculateCurvature(this, d)
 		updateInertia(this, curvature)
