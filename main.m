@@ -21,30 +21,31 @@ colors{10} = 'c';                   % cyan
 colors{11} = 'm';                   % magentha
 colors{12} = 'k';                   % black
 
-% fileNames = ["Inputs-10.xlsx"];
-%     % Inputs-10
-%     requestedDof = 10;
-%     requestedElements = [9,10];
-
-
-fileNames = ["paper1-frame.xlsx", "paper1-beam.xlsx"];
-
-% paper1-frame
+fileNames = ["Input/continuous beam example/10 elements.xlsx", "Input/continuous beam example/100 elements.xlsx"];
+% Inputs-10
 requestedDof(1) = 15;
-requestedElements{1} = [5,6];
 
-% paper1-beam
-requestedDof(2) = 10;
-requestedElements{2} = [5,6];
+% Inputs-100
+requestedDof(2) = 150;
 
+% fileNames = ["Input/paper1/frame.xlsx", "Input/paper1/beam.xlsx"];
+% % paper1-frame
+% requestedDof(1) = 15;
+% 
+% % paper1-beam
+% requestedDof(2) = 15;
 
 counter = 0;
-for j = 1:1
+% For files
+for j = 1:2
     
     fileName = fileNames(j);
     [XYZ, supports, connectivity, materials, sections, thickness, elementTypes, materialIds, sectionIds, nodalLoads] = getInputs(fileName);
     
     % Analysis methods
+    % 1 for TS500
+    % 2 for moment-curvature relation
+    % 3 static
     for i = 1:3
         [K, elements, nodes] = constructStructure(XYZ, supports, connectivity, materials, sections, elementTypes, materialIds, sectionIds);
         F = getLoadVector(nodalLoads,nodes);
@@ -62,7 +63,7 @@ for j = 1:1
         color = colors{counter};
 
         disp = nodeDisplacements(nodes, u(:,size(u,2)));
-        
+
         figure(1)
         plotInternalMomentDiagramAnimation(elements,internalForces,n,animationSpeed,color);
         pause(1)
