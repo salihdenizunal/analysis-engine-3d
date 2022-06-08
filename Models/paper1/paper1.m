@@ -8,7 +8,7 @@ requestedDof(2) = 15;
 
 counter = 0;
 % For files
-for j = 1:2
+for j = 1:1
     
     fileName = fileNames(j);
     [XYZ, supports, connectivity, materials, sections, thickness, elementTypes, materialIds, sectionIds, nodalLoads] = getInputs(fileName);
@@ -74,4 +74,4 @@ comparisonData = [
 1.35410128518560	4.77014924100173];
 
 figure(2)
-plot(comparisonData(:,1),comparisonData(:,2))
+plot(comparisonData(:,1),comparisonData(:,2), 'Color', k)

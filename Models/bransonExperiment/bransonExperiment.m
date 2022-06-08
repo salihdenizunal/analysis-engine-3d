@@ -46,4 +46,4 @@ end
 P = [0 3.92 7.84 11.77 15.69 19.61 23.53 27.45 31.38 35.3 39.22 43.14 47.07 50.99 54.91 58.83];
 def = [0 0.2 0.38 0.58 0.95 1.67 2.5 3.33 4.13 5.01 5.9 6.73 7.55 8.36 9.17 10.07];
 
-plot(def,P,'DisplayName','Experimental Results','LineWidth',3,'Color','r');
+plot(def,P,'DisplayName','Experimental Results','Color','k');

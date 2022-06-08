@@ -8,7 +8,7 @@ requestedDof(2) = 150;
 
 counter = 0;
 % For files
-for j = 1:2
+for j = 1:1
     
     fileName = fileNames(j);
     [XYZ, supports, connectivity, materials, sections, thickness, elementTypes, materialIds, sectionIds, nodalLoads] = getInputs(fileName);
