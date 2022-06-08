@@ -5,9 +5,23 @@ function plotInternalMomentDiagramAnimation(elements,internalForces,n,speed,colo
     grid on
     hold on
     yline(0);
-    yline(elements{1}.MzcrackPosBending);
-    yline(elements{1}.MzcrackNegBending);
     
+    yMin = 0;
+    yMax = 0;
+    % For each iteration
+    for i = 1:n+1
+        xMin = elements{1}.startNode.coordinates(1);
+        xMax = elements{size(elements,2)}.endNode.coordinates(1);
+        xlim([xMin, xMax]);
+
+        % For each element
+        for j = 1:size(elements,2)
+            if (internalForces{j,i}(1,6) > yMax), yMax = internalForces{j,i}(1,6); end
+            if (internalForces{j,i}(1,6) < yMin), yMin = internalForces{j,i}(1,6); end
+        end
+    end
+    ylim([-yMax, -yMin]);
+
     counter = 1;
     % For each iteration
     for i = 1:n+1
@@ -26,7 +40,7 @@ function plotInternalMomentDiagramAnimation(elements,internalForces,n,speed,colo
             plotMoments(1,counter) = -internalForces{j,i}(2,6);
             counter = counter + 1;
         end
-    
+
         % Reset the counter (it is necessary for the animation to clear itself
         % but I dont know why)
         counter = 1;
