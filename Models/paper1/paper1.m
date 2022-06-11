@@ -74,4 +74,4 @@ comparisonData = [
 1.35410128518560	4.77014924100173];
 
 figure(2)
-plot(comparisonData(:,1),comparisonData(:,2), 'Color', k)
+plot(comparisonData(:,1),comparisonData(:,2), 'Color', 'k')
