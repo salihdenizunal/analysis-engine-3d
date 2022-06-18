@@ -200,11 +200,11 @@ figure(2)
 plot(comparisonData(:,1)*10,comparisonData(:,2)*9.8067, 'Color', 'c', 'LineWidth', 3, 'DisplayName', "Comparison Data from Paper 1")
 plot(fig9a(:,1)*25.4,fig9a(:,2)*4.4482216, 'Color', 'k', 'LineWidth', 3, 'DisplayName', "Experimental Data MidSpan")
 plot(fig9b(:,1)*25.4,fig9b(:,2)*4.4482216, 'Color', 'k', 'LineWidth', 3, 'DisplayName', "At Loaded Points")
-plot(larsa(:,1)*1000,larsa(:,2), 'Color', [0.8500 0.3250 0.0980], 'LineWidth', 3, 'DisplayName', "Larsa Hysteretic Element")
+plot(larsa(:,1)*1000,larsa(:,2), 'Color', [0.9500 0.4250 0.3980], 'LineWidth', 3, 'DisplayName', "Larsa Hysteretic Element")
 
 figure(3)
 % in kips
 plot(comparisonData(:,1)*0.393700787,comparisonData(:,2)*2.2046226218, 'Color', 'c', 'LineWidth', 3, 'DisplayName', "Comparison Data from Paper 1")
 plot(fig9a(:,1), fig9a(:,2), 'Color', 'k', 'LineWidth', 3, 'DisplayName', "Experimental Data MidSpan")
 plot(fig9b(:,1), fig9b(:,2), 'Color', 'k', 'LineWidth', 3, 'DisplayName', "At Loaded Points")
-plot(larsa(:,1)*39.3700787,larsa(:,2)*0.22480894387096, 'Color', [0.8500 0.3250 0.0980], 'LineWidth', 3, 'DisplayName', "Larsa Hysteretic Element")
+plot(larsa(:,1)*39.3700787,larsa(:,2)*0.22480894387096, 'Color', [0.9500 0.4250 0.3980], 'LineWidth', 3, 'DisplayName', "Larsa Hysteretic Element")
