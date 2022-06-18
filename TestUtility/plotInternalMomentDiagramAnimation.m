@@ -1,9 +1,10 @@
-function plotInternalMomentDiagramAnimation(elements,internalForces,n,speed,color)
+function plotInternalMomentDiagramAnimation(elements,internalForces,n,speed,color,displayName)
     
     clear plotMoments plotData xCoors
     set(gca,'Ydir','reverse')
     grid on
     hold on
+    legend
     yline(0);
     
     yMin = 0;
@@ -47,7 +48,7 @@ function plotInternalMomentDiagramAnimation(elements,internalForces,n,speed,colo
     
         % Plot the data and store it in plotData, so that we can delete the
         % previous one to animate the plot.
-        plotData(mod(i,2)+1) = plot(xCoors,-plotMoments,'*-','LineWidth',2,'Color',color);
+        plotData(mod(i,2)+1) = plot(xCoors,-plotMoments,'*-','LineWidth',2,'Color',color,'DisplayName',displayName);
     
         % Some color options
         % [255/255, 229/255, 16/255] - yellow
@@ -65,5 +66,4 @@ function plotInternalMomentDiagramAnimation(elements,internalForces,n,speed,colo
         % Pause for a bit, again for animation.
         pause(1/speed);
     end
-
 end
