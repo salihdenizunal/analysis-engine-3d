@@ -6,7 +6,6 @@ requestedDof(1) = 15;
 % 100 Elements
 requestedDof(2) = 150;
 
-counter = 0;
 % For files
 for j = 1:1
     fileName = fileNames(j);
@@ -43,15 +42,19 @@ for j = 1:1
         color = colors{counter};
 
         disp = nodeDisplacements(nodes, u(:,size(u,2)));
+        
+        if plotMomentAnimationFigure
+            figure(1)
+            plotInternalMomentDiagramAnimation(elements,internalForces,n,animationSpeed,color, displayName);
+            pause(1)
+        end
 
-        figure(1)
-        plotInternalMomentDiagramAnimation(elements,internalForces,n,animationSpeed,color, displayName);
-        pause(1)
-
-        figure(2)
-        xlim([0 1.5*10^-3])
-        ylim([0 400])
-        plotDisplacement(requestedDof(j),-f ,-u, color, displayName);
-        pause(1)
+        if plotDisplacementFigure
+            figure(2)
+            xlim([0 1.5*10^-3])
+            ylim([0 400])
+            plotDisplacement(requestedDof(j),-f ,-u, color, displayName);
+            pause(1)
+        end
     end
 end

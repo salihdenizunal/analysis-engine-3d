@@ -5,8 +5,13 @@ n = 1000;
 mIt = 100;
 tol = 1e-3;
 
+plotMomentAnimationFigure = true;
 animationSpeed = 10000;
 
+plotDisplacementFigure = true;
+plotComparison = true;
+
+counter = 0;
 % Different color options
 colors{1} = 'r';                    % red
 colors{2} = 'g';                    % green

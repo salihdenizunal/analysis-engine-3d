@@ -3,7 +3,6 @@ fileNames = ["paper2.xlsx"];
 % paper2-BEAMR6
 requestedDof(1) = 29;
 
-counter = 0;
 % For files
 for j = 1:1
     fileName = fileNames(j);
@@ -42,26 +41,32 @@ for j = 1:1
 
         disp = nodeDisplacements(nodes, u(:,size(u,2)));
         
-%         figure(1)
-%         plotInternalMomentDiagramAnimation(elements,internalForces,n,animationSpeed,color, displayName);
-%         pause(1)
-
-        figure(2)
-        xlim([0 5])
-        ylim([0 150])
-        % converting to kN vs. cm
-        plotDisplacement(requestedDof(j), -f, -u*100, color, displayName);
-        pause(1)
+        if plotMomentAnimationFigure
+            figure(1)
+            plotInternalMomentDiagramAnimation(elements,internalForces,n,animationSpeed,color, displayName);
+            pause(1)
+        end
+        
+        if plotDisplacementFigure
+            figure(2)
+            xlim([0 5])
+            ylim([0 150])
+            % converting to kN vs. cm
+            plotDisplacement(requestedDof(j), -f, -u*100, color, displayName);
+            pause(1)
+        end 
     end
 end
 
-% Load comparison data obtained with grabit
-load('comparison_experiment.mat') % cm kN
-load('comparison_layered_section_approach.mat') % cm kN
-load('comparison_this_study.mat') % cm kN
+if plotComparison
+    % Load comparison data obtained with grabit
+    load('comparison_experiment.mat') % cm kN
+    load('comparison_layered_section_approach.mat') % cm kN
+    load('comparison_this_study.mat') % cm kN
 
-figure(2)
-% cm kN
-plot(comparison_experiment(:,1),comparison_experiment(:,2), 'Color', 'k', 'LineWidth', 3, 'DisplayName', "experiment")
-plot(comparison_layered_section_approach(:,1),comparison_layered_section_approach(:,2), 'Color', 'm', 'LineWidth', 3, 'DisplayName', "layered section approach")
-plot(comparison_this_study(:,1),comparison_this_study(:,2), 'Color', 'c', 'LineWidth', 3, 'DisplayName', "this study(paper2)")
+    figure(2)
+    % cm kN
+    plot(comparison_experiment(:,1),comparison_experiment(:,2), 'Color', 'k', 'LineWidth', 3, 'DisplayName', "experiment")
+    plot(comparison_layered_section_approach(:,1),comparison_layered_section_approach(:,2), 'Color', 'm', 'LineWidth', 3, 'DisplayName', "layered section approach")
+    plot(comparison_this_study(:,1),comparison_this_study(:,2), 'Color', 'c', 'LineWidth', 3, 'DisplayName', "this study(paper2)")
+end
