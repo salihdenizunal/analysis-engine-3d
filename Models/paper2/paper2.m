@@ -1,10 +1,11 @@
-fileNames = ["paper2.xlsx"];
+fileNames = ["paper2.xlsx", "paper2-experiment.xlsx"];
 
 % paper2-BEAMR6
 requestedDof(1) = 29;
+requestedDof(2) = 29;
 
 % For files
-for j = 1:1
+for j = 1:2
     fileName = fileNames(j);
 
     [XYZ, supports, connectivity, materials, sections, thickness, elementTypes, materialIds, sectionIds, nodalLoads] = getInputs(fileName);
