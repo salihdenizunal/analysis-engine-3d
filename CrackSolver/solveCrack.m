@@ -60,6 +60,10 @@ for i=1:n
 		R = fi - fe;
         
         % Store history of iterations.
+        solveForDisplacement(-R,Kt);
+        if (cond(Kt) > 1e15)
+            break;
+        end
         displacementIterations(:,end+1) = Uc + solveForDisplacement(-R,Kt);
 
         % If residual is smaller than tolerance, stop this iteration.
