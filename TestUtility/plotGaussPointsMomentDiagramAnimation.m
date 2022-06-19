@@ -1,4 +1,4 @@
-function plotGaussPointsMomentDiagramAnimation(elements, moments, n, speed, color)
+function plotGaussPointsMomentDiagramAnimation(elements, moments, speed, color)
 %%
 %% USE INTERNAL MOMENT DIAGRAM INSTEAD OF THIS
 %%
@@ -14,7 +14,7 @@ gaussLoc = [-1 -0.6546536707079771437983 0 0.6546536707079771437983 1];
 
 counter = 1;
 % For each iteration
-for i = 1:n+1
+for i = 1:size(moments,2)
     % For each element
     for j = 1:size(elements,2)
         % Take start x coordinate of the element.

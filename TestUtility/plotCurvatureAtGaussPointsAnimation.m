@@ -1,4 +1,4 @@
-function plotCurvatureAtGaussPointsAnimation(elements, curvatures, n, speed, color)
+function plotCurvatureAtGaussPointsAnimation(elements, curvatures, speed, color)
     clear plotCurvatures plotData xCoors
     
     % fh = figure();
@@ -12,7 +12,7 @@ function plotCurvatureAtGaussPointsAnimation(elements, curvatures, n, speed, col
     
     counter = 1;
     % For each iteration
-    for i = 1:n+1
+    for i = 1::size(curvatures,2)
         % For each element
         for j = 1:size(elements,2)
             % Take start x coordinate of the element.

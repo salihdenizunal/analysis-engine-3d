@@ -3,9 +3,9 @@ function [U,force,inertias,moments,internalForces,numberOfIterations,displacemen
 % Initialization of variables.
 numEqn = size(K,1);
 deltaF = (1/n)*F;
-U = zeros(numEqn,n+1);
-numberOfIterations = zeros(1,n+1);
-force = zeros(numEqn,n+1);
+U = zeros(numEqn,1);
+numberOfIterations = zeros(1,1);
+force = zeros(numEqn,1);
 fe = zeros(numEqn,1);
 displacementIterations = zeros(numEqn, 1);
 
@@ -59,11 +59,13 @@ for i=1:n
         % Residual forces.
 		R = fi - fe;
         
+        % Check for singularity.
+        if (cond(Kt) > 1e15)
+            return;
+        end
+
         % Store history of iterations.
         solveForDisplacement(-R,Kt);
-        if (cond(Kt) > 1e15)
-            break;
-        end
         displacementIterations(:,end+1) = Uc + solveForDisplacement(-R,Kt);
 
         % If residual is smaller than tolerance, stop this iteration.

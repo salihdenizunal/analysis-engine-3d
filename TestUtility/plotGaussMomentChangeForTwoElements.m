@@ -1,5 +1,5 @@
 % Moment vs iteration
-function plotGaussMomentChangeForTwoElements(requestedElements, elements, moments, n, color)
+function plotGaussMomentChangeForTwoElements(requestedElements, elements, moments, color)
 %%
 %% USE INTERNAL MOMENT CHANGE INSTEAD OF THIS
 %%
@@ -15,7 +15,7 @@ function plotGaussMomentChangeForTwoElements(requestedElements, elements, moment
     set( get( get( l2, 'Annotation'), 'LegendInformation' ), 'IconDisplayStyle', 'off' );
     set( get( get( l3, 'Annotation'), 'LegendInformation' ), 'IconDisplayStyle', 'off' );
 
-    for i = 1:(n+1)
+    for i = 1:size(moments,2)
         gaussPoint5(i) = -(moments(requestedElements(1),i,5));
         gaussPoint1(i) = -(moments(requestedElements(2),i,1));
     end

@@ -1,5 +1,5 @@
 % Moment vs iteration
-function plotInternalMomentChangeForTwoElements(requestedElements, elements, internalForces, n, color)
+function plotInternalMomentChangeForTwoElements(requestedElements, elements, internalForces, color)
     grid on
     hold on
     legend show
@@ -12,7 +12,7 @@ function plotInternalMomentChangeForTwoElements(requestedElements, elements, int
     set( get( get( l2, 'Annotation'), 'LegendInformation' ), 'IconDisplayStyle', 'off' );
     set( get( get( l3, 'Annotation'), 'LegendInformation' ), 'IconDisplayStyle', 'off' );
 
-    for i = 1:(n+1)
+    for i = 1:size(internalForces,2)
         elemForce1 = internalForces{requestedElements(1),i};
         moment1(i) = -(elemForce1(2,6));
 

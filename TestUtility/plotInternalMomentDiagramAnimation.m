@@ -1,4 +1,4 @@
-function plotInternalMomentDiagramAnimation(elements,internalForces,n,speed,color,displayName)
+function plotInternalMomentDiagramAnimation(elements,internalForces,speed,color,displayName)
     
     clear plotMoments plotData xCoors
     set(gca,'Ydir','reverse')
@@ -10,7 +10,7 @@ function plotInternalMomentDiagramAnimation(elements,internalForces,n,speed,colo
     yMin = 0;
     yMax = 0;
     % For each iteration
-    for i = 1:n+1
+    for i = 1:size(internalForces,2)
         xMin = elements{1}.startNode.coordinates(1);
         xMax = elements{size(elements,2)}.endNode.coordinates(1);
         xlim([xMin, xMax]);
@@ -25,7 +25,7 @@ function plotInternalMomentDiagramAnimation(elements,internalForces,n,speed,colo
 
     counter = 1;
     % For each iteration
-    for i = 1:n+1
+    for i = 1:size(internalForces,2)
         % For each element
         for j = 1:size(elements,2)
             % Take start and end x coordinates.

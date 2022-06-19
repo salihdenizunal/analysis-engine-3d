@@ -44,7 +44,7 @@ for j = 1:2
         
         if plotMomentAnimationFigure
             figure(1)
-            plotInternalMomentDiagramAnimation(elements,internalForces,n,animationSpeed,color, displayName);
+            plotInternalMomentDiagramAnimation(elements,internalForces,animationSpeed,color, displayName);
             pause(1)
         end
         
