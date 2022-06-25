@@ -26,6 +26,13 @@ Kt = constructGlobalStiffness(elements, numEqn, true);
 
 % Start increments.
 for i=1:n
+
+    % Check for singularity.
+    if (cond(Kt) > 1e15)
+        "Singular stiffness matrix in the increment " + num2str(i)
+        return;
+    end
+
 	deltaU = solveForDisplacement(deltaF,Kt);
 	Uc = U(:,i) + deltaU;
 	fe = fe + deltaF;
@@ -61,6 +68,7 @@ for i=1:n
         
         % Check for singularity.
         if (cond(Kt) > 1e15)
+            "Singular stiffness matrix in the increment " + num2str(i) + " and iteration " + num2str(nIt)
             return;
         end
 
@@ -69,12 +77,17 @@ for i=1:n
         displacementIterations(:,end+1) = Uc + solveForDisplacement(-R,Kt);
 
         % If residual is smaller than tolerance, stop this iteration.
-		if norm(R) < tol
+        if norm(R) < tol
 			break;
         end
 		
 		dellU = solveForDisplacement(-R,Kt);
 		Uc = Uc + dellU;
+
+        if (nIt >= mIt)
+            "Maximum iteration has been reached. Could'nt converge the result."
+            return;
+        end
 	end
 	
 	U(:,i+1) = Uc;
