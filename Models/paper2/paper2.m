@@ -69,10 +69,12 @@ if plotComparison
     load('comparison_experiment.mat') % cm kN
     load('comparison_layered_section_approach.mat') % cm kN
     load('comparison_this_study.mat') % cm kN
+    load('comparison_larsa_hysteretic_element.mat') % cm kN
 
     figure(2)
     % cm kN
     plot(comparison_experiment(:,1),comparison_experiment(:,2), 'Color', 'k', 'LineWidth', 3, 'DisplayName', "experiment")
     plot(comparison_layered_section_approach(:,1),comparison_layered_section_approach(:,2), 'Color', 'm', 'LineWidth', 3, 'DisplayName', "layered section approach")
     plot(comparison_this_study(:,1),comparison_this_study(:,2), 'Color', 'c', 'LineWidth', 3, 'DisplayName', "this study(paper2)")
+    plot(comparison_larsa_hysteretic_element(:,1),comparison_larsa_hysteretic_element(:,2), 'Color', [0.9500 0.4250 0.3980], 'LineStyle', '--', 'LineWidth', 3, 'DisplayName', "Larsa Hysteretic Element")
 end
