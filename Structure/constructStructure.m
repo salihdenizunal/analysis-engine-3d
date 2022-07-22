@@ -35,9 +35,21 @@ function [Kg, elements, nodes] = constructStructure (XYZ, supports, connectivity
                 material = materials(materialIds(i),:);
 				thickness = thicknesses(i);
                 elements{i} = ShellElement(i, nodeI, nodeJ, nodeK, nodeL, material, thickness);
+			case 4
+				startNode = nodes(connectivity(i,1));
+                endNode = nodes(connectivity(i,2));
+                material = materials(materialIds(i),:);
+                section = sections(sectionIds(i),:);
+                elements{i} = CrackedBeamElement(i, startNode, endNode, material, section);
+            case 5
+                startNode = nodes(connectivity(i,1));
+                endNode = nodes(connectivity(i,2));
+                material = materials(materialIds(i),:);
+                section = sections(sectionIds(i),:);
+                elements{i} = CrackedFrameElement(i, startNode, endNode, material, section);
         end
     end
     
-	Kg = constructGlobalStiffness(elements,numEqn);
+	Kg = constructGlobalStiffness(elements,numEqn, false);
 
 end

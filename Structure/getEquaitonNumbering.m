@@ -1,4 +1,5 @@
 function [eqnNumbering, numEqn] = getEquaitonNumbering(numNode, supports)
+
     numSupport = size(supports, 1);
     numDofAtNode = (size(supports, 2)-1);
     eqnNumbering = zeros(numNode, numDofAtNode);
@@ -19,5 +20,8 @@ function [eqnNumbering, numEqn] = getEquaitonNumbering(numNode, supports)
             end
         end
     end
+
+    % Return the number of equations.
     numEqn = counter - 1;
+
 end
